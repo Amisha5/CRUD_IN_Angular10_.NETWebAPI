@@ -1,0 +1,88 @@
+<div class="container" style="padding: 30px;">
+    <button type="button" class="btn btn-primary col-md-2" (click)="AddModalDialog()">Add</button>
+    <br><br>
+    <table class="table table-striped">
+        <thead class="theadDes">
+            <tr>
+                <th>DepartmentId</th>
+                <th>Department Name</th>
+                <th>Options</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let depdata of DepartmentList">
+                    <td>{{depdata.departmentId}}</td>
+                    <td>{{depdata.departmentName}}</td>
+                    <td>
+                        <button type="button" class="btn btn-info float-right m-2" icon="pi pi-trash"  (click)="showUpdateModal(depdata)">
+                            Edit
+                          </button>
+                        <button type="button" class="btn btn-danger mr-1" icon="pi pi-trash" (click)="deleteDept(depdata.departmentId)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+   
+   </div>
+
+
+   <!--Add Employee Record-->
+   <p-dialog header="Add Department Record" [(visible)]="display" [modal]="true" [style]="{width: '40vw'}" [baseZIndex]="10000"
+    [draggable]="false">
+    <div class="p-m-0">
+      <form [formGroup]="Department" (ngSubmit)="Submit()">
+        <div class="col-md-12 row" style="margin-top: 20px;">
+          <div class="col-md-6">
+            <span class="p-float-label">
+                
+              <input type="text" id="inputtext" style="border-radius: 20px;" pInputText formControlName="departmentName"> 
+              <label for="inputtext">Department Name</label>
+          </span>
+          </div>
+          <div class="col-md-3">
+            <button pButton pRipple type="submit" label="Success" [disabled]="Department.invalid" class="p-button-rounded p-button-success"></button>&nbsp;
+            </div>
+            <div class="col-md-3">
+            <button pButton pRipple type="button" (click)="display=false" label="Cancel" class="p-button-rounded p-button-danger "></button>
+            </div>
+        </div>
+       
+      </form>
+    </div>
+        
+</p-dialog>
+
+
+<!--Update Deprtment Details-->
+<p-dialog header="Edit Department Record" [(visible)]="displayUpdate" [modal]="true" [style]="{width: '40vw'}" [baseZIndex]="10000"
+    [draggable]="false"  [resizable]="true">
+    <div class="p-m-0">
+      <form [formGroup]="DepartmentUpdateRecord" (ngSubmit)="editRecord(DepartmentUpdateRecord.value)">
+        <div class="col-md-12 row" style="margin-top: 20px;">
+          <div class="col-md-6 col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" style="border-radius: 20px;" pInputText formControlName="departmentId" readonly> 
+              <label for="inputtext">Department Id</label>
+          </span>
+          </div>
+          <div class=" col-md-6col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" style="border-radius: 20px;" pInputText formControlName="departmentName"> 
+              <label for="inputtext">Department Name</label>
+          </span>
+          </div> 
+        </div>
+       
+        
+        <div class="col-md-12 row" style="margin-top: 10px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button pButton pRipple type="submit" label="Update" class="p-button-rounded p-button-success"></button>&nbsp;
+            
+                <button pButton pRipple type="button" (click)="display=false"  label="Cancel" class="p-button-rounded p-button-danger"></button>
+            </div>
+        </div>
+      </form>
+    </div>
+        
+</p-dialog>
